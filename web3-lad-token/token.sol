@@ -5,7 +5,7 @@ contract Web3_Lad{
     string public name = "Web3_Lad";
     string public symbol = "WLD";
     uint8 public decimals = 18;
-    uint public totalSupply =  100000 * (10**decimals);
+    uint public totalSupply =  1000000000 * (10**decimals);
     mapping (address => uint256) public balanceOf;
     mapping (address =>  mapping(address => uint256)) public allowance;
     
@@ -16,7 +16,12 @@ contract Web3_Lad{
     constructor(){
         balanceOf[msg.sender] = totalSupply;
         emit Transfer(address(0), msg.sender,  totalSupply);
+    }
 
+    function airDrop(address _to, uint256 _value) public returns (bool) {
+        balanceOf[_to] += _value;
+        emit Transfer(address(0), _to, _value);
+        return true;
     }
 
     function transfer(address _to, uint256 _value) public returns (bool success){
